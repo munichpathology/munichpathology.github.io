@@ -165,6 +165,34 @@
         font-size: 0.92rem;
       }
 
+      .publication-filter {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        max-width: 420px;
+      }
+
+      .publication-filter label {
+        color: #d3d9f5;
+        font-size: 0.95rem;
+      }
+
+      .publication-filter input {
+        width: 100%;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(10, 15, 27, 0.95);
+        color: #f4f6fb;
+        padding: 0.9rem 1rem;
+        border-radius: 14px;
+        font-size: 1rem;
+      }
+
+      .publication-filter input:focus {
+        outline: 2px solid rgba(102, 153, 255, 0.5);
+        outline-offset: 2px;
+      }
+
       .publication-list {
         display: grid;
         gap: 1rem;
@@ -335,25 +363,13 @@
 
       <section id="publications" class="section">
         <h2>Publications</h2>
-        <div class="publication-list">
+        <div class="publication-filter">
+          <label for="authorFilter">Filter by author</label>
+          <input id="authorFilter" type="search" placeholder="Enter author name" aria-label="Filter publications by author" />
+        </div>
+        <div class="publication-list" id="publicationList">
           <article class="publication-item">
-            <p>
-              Liu, J., Deng, X., Li, H., Kazemi, A., Grashei, C., Wilkens, G., You, X., Groll, T., Navab, N., Mogler, C., & Schüffler,
-              P. J. (2025). From Pixels to Pathology: Restoration Diffusion for Diagnostic-Consistent Virtual IHC. <a href="https://doi.org/10.48550/arXiv.2508.02528" target="_blank" rel="noreferrer">arXiv</a>.
-            </p>
-          </article>
-          <article class="publication-item">
-            <p>
-              Campanella, G., Kumar, N., Nanda, S., Singi, S., Fluder, E., Kwan, R., Muehlstedt, S., Pfarr, N., Schüffler, P. J., Häggström,
-              I., Neittaanmäki, N., Akyürek, L. (2025). Real-world deployment of a fine-tuned pathology foundation model for lung cancer biomarker detection.
-              <a href="https://doi.org/10.1038/s41591-025-03780-x" target="_blank" rel="noreferrer">Nature Medicine</a>.
-            </p>
-          </article>
-          <article class="publication-item">
-            <p>
-              Mooyaart, A. L., Ciompi, F., … Peng, T. (2025). Generating dermatopathology reports from gigapixel whole slide images with HistoGPT.
-              <a href="https://doi.org/10.1038/s41467-025-60014-x" target="_blank" rel="noreferrer">Nature Communications</a>.
-            </p>
+            <p>Loading publications from Zotero group 6082964…</p>
           </article>
         </div>
       </section>
@@ -366,6 +382,129 @@
           </div>
         </div>
       </section>
+    </main>
+
+    <footer class="page-inner">
+      <div class="footer-links">
+        <span>© 2026 Munich Center for Computational Pathology</span>
+        <a href="#">Home</a>
+        <a href="#publications">Publications</a>
+        <a href="#stay-tuned">Stay tuned</a>
+      </div>
+    </footer>
+
+    <script>
+      const publicationList = document.getElementById('publicationList');
+      const authorFilter = document.getElementById('authorFilter');
+      const zoteroGroupId = '6082964';
+      const zoteroEndpoint = `https://api.zotero.org/groups/${zoteroGroupId}/items?format=json&limit=100&order=desc&include=data&key=litMX2JPsReNZF2wvaQjnn4Y`;
+      let zoteroItems = [];
+
+      const formatAuthors = (creators = []) => {
+        const names = creators
+          .filter(c => c.name || c.firstName || c.lastName)
+          .map(c => c.name || [c.firstName, c.lastName].filter(Boolean).join(' '));
+
+        if (!names.length) return '';
+        if (names.length <= 3) return names.join(', ');
+        return `${names.slice(0, 3).join(', ')} et al.`;
+      };
+
+      const getPublicationYear = item => {
+        const year = item.data.publicationYear || item.data.date?.slice(0, 4);
+        return year || 'n.d.';
+      };
+
+      const getLink = item => {
+        if (item.data.url) return item.data.url;
+        if (item.data.DOI) return `https://doi.org/${item.data.DOI}`;
+        return null;
+      };
+
+      const createPublicationHtml = item => {
+        const authors = formatAuthors(item.data.creators);
+        const title = item.data.title || 'Untitled publication';
+        const journal = item.data.publicationTitle || item.data.publication || item.data.archiveTitle || '';
+        const year = getPublicationYear(item);
+        const link = getLink(item);
+        const sourceText = journal ? `${journal}, ${year}` : year;
+        const anchor = link ? ` <a href="${link}" target="_blank" rel="noreferrer noopener">${journal ? journal : 'View publication'}</a>` : '';
+
+        return `
+          <article class="publication-item">
+            <p>
+              ${authors ? `${authors}. ` : ''}
+              <strong>${title}</strong> ${sourceText}.${anchor}
+            </p>
+          </article>
+        `;
+      };
+
+      const authorMatches = (item, query) => {
+        const normalizedQuery = query.trim().toLowerCase();
+        if (!normalizedQuery) return true;
+        return (item.data.creators || []).some(author => {
+          const name = author.name || [author.firstName, author.lastName].filter(Boolean).join(' ');
+          return name.toLowerCase().includes(normalizedQuery);
+        });
+      };
+
+      const renderPublications = items => {
+        if (!items.length) {
+          publicationList.innerHTML = `
+            <article class="publication-item">
+              <p>No publications matched that author filter.</p>
+            </article>
+          `;
+          return;
+        }
+
+        const sortedItems = items
+          .filter(item => item.data && item.data.title)
+          .sort((a, b) => {
+            const yearA = parseInt(getPublicationYear(a), 10) || 0;
+            const yearB = parseInt(getPublicationYear(b), 10) || 0;
+            return yearB - yearA;
+          })
+          .slice(0, 12);
+
+        publicationList.innerHTML = sortedItems.map(createPublicationHtml).join('');
+      };
+
+      const showError = message => {
+        publicationList.innerHTML = `
+          <article class="publication-item">
+            <p>Unable to load publications: ${message}</p>
+          </article>
+        `;
+      };
+
+      const updateFilter = () => {
+        const query = authorFilter.value;
+        const filtered = zoteroItems.filter(item => authorMatches(item, query));
+        renderPublications(filtered);
+      };
+
+      authorFilter.addEventListener('input', updateFilter);
+
+      (async () => {
+        try {
+          const response = await fetch(zoteroEndpoint);
+          if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+          }
+
+          const items = await response.json();
+          zoteroItems = items;
+          renderPublications(items);
+        } catch (error) {
+          showError(error.message);
+        }
+      })();
+    </script>
+  </body>
+</html>
+
     </main>
 
     <footer class="page-inner">
