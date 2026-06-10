@@ -1,1 +1,381 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Munich Center for Computational Pathology</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #080b14;
+        color: #f4f6fb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        line-height: 1.6;
+        background: radial-gradient(circle at top, rgba(64, 144, 255, 0.14), transparent 22%),
+          linear-gradient(180deg, #080b14 0%, #0e1424 48%, #090b12 100%);
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: rgba(5, 10, 22, 0.85);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .page-inner {
+        width: min(1200px, calc(100% - 2rem));
+        margin: 0 auto;
+      }
+
+      .nav-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+      }
+
+      .brand {
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      nav {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        color: rgba(244, 246, 251, 0.85);
+        transition: color 0.2s ease;
+      }
+
+      nav a:hover {
+        color: #81a8ff;
+      }
+
+      .hero {
+        padding: 6rem 0 3rem;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(2.7rem, 5vw, 4.6rem);
+        line-height: 0.98;
+      }
+
+      .hero p {
+        max-width: 680px;
+        margin: 1.5rem 0 0;
+        color: #c8d1ff;
+        font-size: 1.05rem;
+      }
+
+      .hero .hero-meta {
+        display: grid;
+        gap: 1rem;
+        margin-top: 2.5rem;
+      }
+
+      .hero .meta-card {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(12, 19, 34, 0.75);
+        padding: 1.4rem;
+        border-radius: 18px;
+      }
+
+      .hero .meta-card strong {
+        display: block;
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        color: #edf2ff;
+      }
+
+      .hero .meta-card span {
+        font-size: 0.92rem;
+        color: #a9b3d8;
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      .section h2 {
+        margin: 0 0 1rem;
+        font-size: 2rem;
+      }
+
+      .section p.lead {
+        max-width: 760px;
+        color: #b8c4e8;
+      }
+
+      .grid {
+        display: grid;
+        gap: 1.4rem;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        background: rgba(11, 17, 31, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 1.6rem;
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: #bfc8e5;
+      }
+
+      .card span {
+        display: block;
+        margin-top: 0.75rem;
+        color: #8e9fca;
+        font-size: 0.92rem;
+      }
+
+      .publication-list {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .publication-item {
+        border-left: 3px solid #6d8dff;
+        padding: 1rem 1rem 1rem 1rem;
+        background: rgba(12, 18, 32, 0.75);
+        border-radius: 16px;
+      }
+
+      .publication-item p {
+        margin: 0;
+        color: #dfe5ff;
+      }
+
+      .publication-item a {
+        color: #96b6ff;
+      }
+
+      .cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 2rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(48, 89, 255, 0.16), rgba(55, 149, 255, 0.08));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .cta h3 {
+        margin: 0;
+        font-size: 1.3rem;
+      }
+
+      .cta p {
+        margin: 0.6rem 0 0;
+        color: #c5d1f8;
+      }
+
+      footer {
+        padding: 2rem 0 3rem;
+        color: #8c9dd1;
+        font-size: 0.95rem;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      @media (max-width: 800px) {
+        .nav-wrapper {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero .hero-meta,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+
+        .cta {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="page-inner nav-wrapper">
+        <div class="brand">Munich Center for Computational Pathology</div>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#pis">Principal Investigators</a>
+          <a href="#publications">Publications</a>
+          <a href="#stay-tuned">Stay tuned</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-inner">
+      <section class="hero">
+        <h1>Advancing pathology with interpretable, clinically reliable AI.</h1>
+        <p>
+          The Munich Center for Computational Pathology unites pathologists, AI scientists, and disease experts from TUM,
+          LMU, and Helmholtz Munich to develop trustworthy AI for medical imaging, diagnostics, and translational research.
+        </p>
+
+        <div class="hero-meta grid grid-3">
+          <div class="meta-card">
+            <strong>Collaborative network</strong>
+            <span>LMU, TUM, Helmholtz Munich, and regional clinical partners.</span>
+          </div>
+          <div class="meta-card">
+            <strong>Research focus</strong>
+            <span>Pathology foundation models, interpretable AI, and real-world clinical validation.</span>
+          </div>
+          <div class="meta-card">
+            <strong>Goal</strong>
+            <span>Deliver AI tools that support diagnosis, therapy selection, and patient care.</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <h2>About MCCP</h2>
+        <p class="lead">
+          MCCP is building a shared web presence for computational pathology in Munich. Our work combines digital pathology,
+          imaging genetics, and clinical data to create AI solutions that are transparent, robust, and ready for clinical practice.
+        </p>
+      </section>
+
+      <section id="pis" class="section">
+        <h2>Principal Investigators</h2>
+        <div class="grid grid-3">
+          <article class="card">
+            <h3>Dr. Paolo Casale</h3>
+            <p>Helmholtz Munich</p>
+            <span>AI for Imaging Genetics</span>
+          </article>
+          <article class="card">
+            <h3>Prof. Dr. Frederick Klauschen</h3>
+            <p>LMU</p>
+            <span>Pathologist</span>
+          </article>
+          <article class="card">
+            <h3>Dr. Carsten Marr</h3>
+            <p>LMU & Helmholtz</p>
+            <span>Scientist</span>
+          </article>
+          <article class="card">
+            <h3>Dr. Andreas Mock</h3>
+            <p>LMU</p>
+            <span>Scientist</span>
+          </article>
+          <article class="card">
+            <h3>Prof. Dr. Carolin Mogler</h3>
+            <p>TUM</p>
+            <span>Pathologist</span>
+          </article>
+          <article class="card">
+            <h3>Dr. Tingying Peng</h3>
+            <p>Helmholtz Munich</p>
+            <span>Scientist</span>
+          </article>
+          <article class="card">
+            <h3>Prof. Dr. Peter Schüffler</h3>
+            <p>TUM</p>
+            <span>Scientist</span>
+          </article>
+          <article class="card">
+            <h3>PD Dr. Katja Steiger</h3>
+            <p>TUM</p>
+            <span>Vet. Pathologist, Scientist</span>
+          </article>
+          <article class="card">
+            <h3>Dr. Ewa Szczurek</h3>
+            <p>Helmholtz Munich</p>
+            <span>Scientist</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="publications" class="section">
+        <h2>Publications</h2>
+        <div class="publication-list">
+          <article class="publication-item">
+            <p>
+              Liu, J., Deng, X., Li, H., Kazemi, A., Grashei, C., Wilkens, G., You, X., Groll, T., Navab, N., Mogler, C., & Schüffler,
+              P. J. (2025). From Pixels to Pathology: Restoration Diffusion for Diagnostic-Consistent Virtual IHC. <a href="https://doi.org/10.48550/arXiv.2508.02528" target="_blank" rel="noreferrer">arXiv</a>.
+            </p>
+          </article>
+          <article class="publication-item">
+            <p>
+              Campanella, G., Kumar, N., Nanda, S., Singi, S., Fluder, E., Kwan, R., Muehlstedt, S., Pfarr, N., Schüffler, P. J., Häggström,
+              I., Neittaanmäki, N., Akyürek, L. (2025). Real-world deployment of a fine-tuned pathology foundation model for lung cancer biomarker detection.
+              <a href="https://doi.org/10.1038/s41591-025-03780-x" target="_blank" rel="noreferrer">Nature Medicine</a>.
+            </p>
+          </article>
+          <article class="publication-item">
+            <p>
+              Mooyaart, A. L., Ciompi, F., … Peng, T. (2025). Generating dermatopathology reports from gigapixel whole slide images with HistoGPT.
+              <a href="https://doi.org/10.1038/s41467-025-60014-x" target="_blank" rel="noreferrer">Nature Communications</a>.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="stay-tuned" class="section">
+        <div class="cta">
+          <div>
+            <h3>Stay tuned!</h3>
+            <p>We are currently building up this web presence. Follow our progress as we expand research, publications, and clinical AI collaborations.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-inner">
+      <div class="footer-links">
+        <span>© 2026 Munich Center for Computational Pathology</span>
+        <a href="#">Home</a>
+        <a href="#publications">Publications</a>
+        <a href="#stay-tuned">Stay tuned</a>
+      </div>
+    </footer>
+  </body>
+</html>
+
