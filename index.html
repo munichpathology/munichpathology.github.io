@@ -59,6 +59,14 @@
         font-weight: 700;
         letter-spacing: 0.16em;
         text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .brand img {
+        height: 40px;
+        width: auto;
       }
 
       nav {
@@ -130,6 +138,13 @@
       .section p.lead {
         max-width: 760px;
         color: #b8c4e8;
+      }
+
+      .section-image {
+        max-width: 600px;
+        margin-top: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
       }
 
       .grid {
@@ -276,7 +291,10 @@
   <body>
     <header>
       <div class="page-inner nav-wrapper">
-        <div class="brand">Munich Center for Computational Pathology</div>
+        <div class="brand">
+          <img src="img/mccp.png" alt="Munich Center for Computational Pathology logo" />
+          Munich Center for Computational Pathology
+        </div>
         <nav>
           <a href="#about">About</a>
           <a href="#pis">Principal Investigators</a>
@@ -316,6 +334,7 @@
           MCCP is building a shared web presence for computational pathology in Munich. Our work combines digital pathology,
           imaging genetics, and clinical data to create AI solutions that are transparent, robust, and ready for clinical practice.
         </p>
+        <img src="img/stadtbezirke-muenchen.png" alt="Munich map showing TUM, LMU, and Helmholtz Munich locations" class="section-image" />
       </section>
 
       <section id="pis" class="section">
