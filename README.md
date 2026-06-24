@@ -4,7 +4,12 @@
 
 - DNS provided by LRZ (organized by Peter)
 - hosted at GitHub (<https://github.com/munichpathology/munichpathology.github.io>)
-- Can be edited by everyone who has MCCP GitHub access
+
+## Add or Edit Content
+
+The website can be edited by everyone who has MCCP GitHub access. If you don't have access, please ask your PI or Peter to be added accordingly.
+
+**Feel free to add or edit content as needed, but be responsible and mindful.** This page represents the Munich Computational Pathology community. If you are unsure about potential content, please contact your PI or Peter.
 
 ## References on the Website
 
