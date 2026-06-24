@@ -14,6 +14,6 @@ The website shall list references of your work in the section "[Publications](ht
    (if you don't have an account, register for a free account)
 2. Go to the Group MCCP  
    (if you don't see this group, ask Peter to be invited)
-3. Add the reference via DOI using the *add..* or *wand* tool.
+3. Add the reference via DOI using the *Add By Identifier* tool.
 
 It will then automatically be synchronized and added to the website.
