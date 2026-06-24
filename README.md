@@ -17,3 +17,7 @@ The website shall list references of your work in the section "[Publications](ht
 3. Add the reference via DOI using the *Add By Identifier* tool.
 
 It will then automatically be synchronized and added to the website.
+
+## PIs on the Website
+
+PIs are currently listed in alphabetic order. To add or modify PIs on the website, please follow the structure and layout of existing PIs.
