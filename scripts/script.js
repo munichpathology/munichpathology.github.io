@@ -37,8 +37,8 @@ const createPublicationHtml = item => {
   return `
     <article class="publication-item">
       <p>
-        ${authors ? `${authors}. ` : ''}
-        <strong>${title}</strong> ${sourceText}.${anchor}
+        ${authors ? `${authors} ` : ''}
+        <br /><strong>${title}</strong><br />${sourceText}.${anchor}
       </p>
     </article>
   `;
