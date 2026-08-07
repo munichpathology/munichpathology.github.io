@@ -131,13 +131,6 @@ nav a:hover {
   font-size: clamp(2rem, 4vw, 3rem);
 }
 
-.section p.lead,
-.section p,
-.card p {
-  max-width: 760px;
-  color: #b8c4e8;
-}
-
 .section-image {
   width: 100%;
   max-width: 600px;
