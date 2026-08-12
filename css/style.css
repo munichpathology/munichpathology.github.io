@@ -227,6 +227,72 @@ nav a:hover {
   color: #96b6ff;
 }
 
+.events-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.event-card {
+  background: rgba(11, 17, 31, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.event-card:hover {
+  border-color: rgba(102, 153, 255, 0.3);
+  background: rgba(11, 17, 31, 0.95);
+}
+
+.event-header {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid rgba(102, 153, 255, 0.2);
+  padding-bottom: 1rem;
+}
+
+.event-header h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.3rem;
+  color: #edf2ff;
+}
+
+.event-date {
+  display: inline-block;
+  color: #96b6ff;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.event-details {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detail-item {
+  color: #c8d1ff;
+  font-size: 0.98rem;
+}
+
+.detail-item strong {
+  color: #edf2ff;
+}
+
+.event-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #96b6ff;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.event-link:hover {
+  color: #b8ceff;
+  text-decoration: underline;
+}
+
 .cta {
   display: flex;
   align-items: center;
